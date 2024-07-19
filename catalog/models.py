@@ -2,12 +2,12 @@ from django.db import models
 
 
 class Category(models.Model):
-    сategory_name = models.CharField(
+    category_name = models.CharField(
         max_length=50,
         verbose_name="Название категории",
         help_text="Введите название категории",
     )
-    сategory_description = models.TextField(
+    category_description = models.TextField(
         verbose_name="Описание категории",
         help_text="Опишите категорию",
         blank=True,
@@ -35,7 +35,7 @@ class Product(models.Model):
         blank=True,
         null=True,
     )
-    image = models.IntegerField(
+    image = models.ImageField(
         upload_to="catalog/photo",
         blank=True,
         null=True,
