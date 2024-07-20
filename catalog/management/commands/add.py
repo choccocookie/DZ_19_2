@@ -2,18 +2,23 @@ from django.core.management import BaseCommand
 import os
 import json
 from catalog.models import Product, Category
+from pathlib import Path
 
 class Command(BaseCommand):
 
     @staticmethod
     def json_read_categories():
-        with open('product_data.json', 'r', encoding='utf-8') as file:
+        base_path = Path(__file__).resolve().parent.parent.parent
+        file_path = base_path / 'fixtures' / 'catalog_data.json'
+        with open(file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
         return data
 
     @staticmethod
     def json_read_products():
-        with open('catalog_data.json', 'r', encoding='utf-8') as file:
+        base_path = Path(__file__).resolve().parent.parent.parent
+        file_path = base_path / 'fixtures' / 'product_data.json'
+        with open(file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
         return data
 
@@ -40,7 +45,7 @@ class Command(BaseCommand):
 		# Обходим все значения продуктов из фиктсуры для получения информации об одном объекте
         for product in Command.json_read_products():
             product_for_create.append(
-                Product(product_name=product['product_name'],
+                Product(product_name=product['fields']['product_name'],
                         product_description=product['fields']['product_description'],
                         image=product['fields']['image'],
                         category=Category.objects.get(pk=product['fields']['category']),
