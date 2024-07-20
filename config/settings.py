@@ -80,7 +80,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'orm',
         'USER': 'postgres',
-        'PASSWORD': 'sky.pro'
+        'PASSWORD': 'sky.pro',
+        'HOST': '127.0.0.1',
+        'PORT': 5432
     }
 }
 

@@ -1,5 +1,5 @@
 from django.core.management import BaseCommand
-import os
+from django.utils import timezone
 import json
 from catalog.models import Product, Category
 from pathlib import Path
@@ -37,7 +37,7 @@ class Command(BaseCommand):
 		# Обходим все значения категорий из фиктсуры для получения информации об одном объекте
         for category in Command.json_read_categories():
             category_for_create.append(
-                Category(category_name=category['fields']['category_name'], category_description=category['fields'].get('category_description', ''))
+                Category(id=category['pk'], name=category['fields']['name'], description=category['fields'].get('description', ''))
             )
 		# Создаем объекты в базе с помощью метода bulk_create()
         Category.objects.bulk_create(category_for_create)
@@ -45,8 +45,9 @@ class Command(BaseCommand):
 		# Обходим все значения продуктов из фиктсуры для получения информации об одном объекте
         for product in Command.json_read_products():
             product_for_create.append(
-                Product(product_name=product['fields']['product_name'],
-                        product_description=product['fields']['product_description'],
+                Product(id=product['pk'],
+                        name=product['fields']['name'],
+                        description=product['fields']['description'],
                         image=product['fields']['image'],
                         category=Category.objects.get(pk=product['fields']['category']),
                         purchase_price=product['fields']['purchase_price'],

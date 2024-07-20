@@ -3,24 +3,24 @@
     "model": "catalog.category",
     "pk": 1,
     "fields": {
-      "category_name": "Консервы",
-      "category_description": "Мясные, овощи, фрукты и тд."
+      "name": "Консервы",
+      "description": "Мясные, овощи, фрукты и тд."
     }
   },
   {
     "model": "catalog.category",
     "pk": 2,
     "fields": {
-      "category_name": "Мясо",
-      "category_description": "Птица, свинина, говядина"
+      "name": "Мясо",
+      "description": "Птица, свинина, говядина"
     }
   },
   {
     "model": "catalog.category",
     "pk": 3,
     "fields": {
-      "category_name": "Напитки",
-      "category_description": "Вода, соки, лимонады"
+      "name": "Напитки",
+      "description": "Вода, соки, лимонады"
     }
   }
 ]

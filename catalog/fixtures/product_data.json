@@ -3,11 +3,11 @@
         "model": "catalog.product",
         "pk": 1,
         "fields": {
-            "product_name": "Куриные консервы",
-            "product_description": "Консервы из куриного мяса",
+            "name": "Куриные консервы",
+            "description": "Консервы из куриного мяса",
             "image": "catalog/photo/chicken_cans.jpg",
             "category": 1,
-            "purchase_price": "120",
+            "purchase_price": 120,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
@@ -16,11 +16,11 @@
         "model": "catalog.product",
         "pk": 2,
         "fields": {
-            "product_name": "Говядина консервированная",
-            "product_description": "Консервы из говядины",
+            "name": "Говядина консервированная",
+            "description": "Консервы из говядины",
             "image": "catalog/photo/beef_cans.jpg",
             "category": 1,
-            "purchase_price": "150",
+            "purchase_price": 150,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
@@ -29,11 +29,11 @@
         "model": "catalog.product",
         "pk": 3,
         "fields": {
-            "product_name": "Овощные консервы",
-            "product_description": "Консервы из овощей",
+            "name": "Овощные консервы",
+            "description": "Консервы из овощей",
             "image": "catalog/photo/vegetable_cans.jpg",
             "category": 1,
-            "purchase_price": "80",
+            "purchase_price": 80,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
@@ -42,11 +42,11 @@
         "model": "catalog.product",
         "pk": 4,
         "fields": {
-            "product_name": "Фрукты консервированные",
-            "product_description": "Консервы из фруктов",
+            "name": "Фрукты консервированные",
+            "description": "Консервы из фруктов",
             "image": "catalog/photo/fruit_cans.jpg",
             "category": 1,
-            "purchase_price": "100",
+            "purchase_price": 100,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
@@ -55,11 +55,11 @@
         "model": "catalog.product",
         "pk": 5,
         "fields": {
-            "product_name": "Свинина свежая",
-            "product_description": "Свежая свинина",
+            "name": "Свинина свежая",
+            "description": "Свежая свинина",
             "image": "catalog/photo/fresh_pork.jpg",
             "category": 2,
-            "purchase_price": "200",
+            "purchase_price": 200,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
@@ -68,11 +68,11 @@
         "model": "catalog.product",
         "pk": 6,
         "fields": {
-            "product_name": "Куриное филе",
-            "product_description": "Свежие куриные филе",
+            "name": "Куриное филе",
+            "description": "Свежие куриные филе",
             "image": "catalog/photo/chicken_fillet.jpg",
             "category": 2,
-            "purchase_price": "220",
+            "purchase_price": 220,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
@@ -81,11 +81,11 @@
         "model": "catalog.product",
         "pk": 7,
         "fields": {
-            "product_name": "Говяжий стейк",
-            "product_description": "Сочный говяжий стейк",
+            "name": "Говяжий стейк",
+            "description": "Сочный говяжий стейк",
             "image": "catalog/photo/beef_steak.jpg",
             "category": 2,
-            "purchase_price": "350",
+            "purchase_price": 350,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
@@ -94,11 +94,11 @@
         "model": "catalog.product",
         "pk": 8,
         "fields": {
-            "product_name": "Куриные крылья",
-            "product_description": "Свежие куриные крылья",
+            "name": "Куриные крылья",
+            "description": "Свежие куриные крылья",
             "image": "catalog/photo/chicken_wings.jpg",
             "category": 2,
-            "purchase_price": "180",
+            "purchase_price": 180,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
@@ -107,11 +107,11 @@
         "model": "catalog.product",
         "pk": 9,
         "fields": {
-            "product_name": "Минеральная вода",
-            "product_description": "Питьевая минеральная вода",
+            "name": "Минеральная вода",
+            "description": "Питьевая минеральная вода",
             "image": "catalog/photo/mineral_water.jpg",
             "category": 3,
-            "purchase_price": "50",
+            "purchase_price": 50,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
@@ -120,11 +120,11 @@
         "model": "catalog.product",
         "pk": 10,
         "fields": {
-            "product_name": "Апельсиновый сок",
-            "product_description": "Свежий апельсиновый сок",
+            "name": "Апельсиновый сок",
+            "description": "Свежий апельсиновый сок",
             "image": "catalog/photo/orange_juice.jpg",
             "category": 3,
-            "purchase_price": "70",
+            "purchase_price": 70,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
@@ -133,11 +133,11 @@
         "model": "catalog.product",
         "pk": 11,
         "fields": {
-            "product_name": "Лимонад",
-            "product_description": "Освежающий лимонад",
+            "name": "Лимонад",
+            "description": "Освежающий лимонад",
             "image": "catalog/photo/lemonade.jpg",
             "category": 3,
-            "purchase_price": "60",
+            "purchase_price": 60,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
@@ -146,11 +146,11 @@
         "model": "catalog.product",
         "pk": 12,
         "fields": {
-            "product_name": "Газированная вода",
-            "product_description": "Газированная питьевая вода",
+            "name": "Газированная вода",
+            "description": "Газированная питьевая вода",
             "image": "catalog/photo/soda_water.jpg",
             "category": 3,
-            "purchase_price": "55",
+            "purchase_price": 55,
             "created_at": "2024-01-01",
             "updated_at": "2024-01-02"
         }
