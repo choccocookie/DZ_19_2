@@ -1,4 +1,4 @@
-from django.core.management import BaseCommand
+from django.core.management import BaseCommand, call_command
 from django.utils import timezone
 import json
 from catalog.models import Product, Category

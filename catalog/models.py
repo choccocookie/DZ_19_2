@@ -60,7 +60,7 @@ class Product(models.Model):
     )
     updated_at = models.DateTimeField(
         verbose_name="Дата изменения продукта",
-        auto_now_add=True,
+        auto_now=True,
     )
 
 
