@@ -20,7 +20,7 @@ def home(request):
     products = Product.objects.all()
     context = {"products": products, 'latest_products': latest_products}
 
-    return render(request, 'home.html', context)
+    return render(request, 'products.html', context)
     #return render(request, 'home.html')
 
 def contacts(request):
