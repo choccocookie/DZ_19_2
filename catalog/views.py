@@ -16,7 +16,11 @@ def home(request):
     for product in latest_products:
         print(f'{product.name}: {product.description}')
 
-    return render(request, 'home.html', {'latest_products': latest_products})
+    # Вывести список товаров на страницу
+    products = Product.objects.all()
+    context = {"products": products, 'latest_products': latest_products}
+
+    return render(request, 'home.html', context)
     #return render(request, 'home.html')
 
 def contacts(request):
@@ -37,4 +41,6 @@ def contacts(request):
 
     # Если запрос GET, просто отображаем форму
     return render(request, 'contacts.html')
+
+
 
