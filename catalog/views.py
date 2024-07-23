@@ -42,5 +42,10 @@ def contacts(request):
     # Если запрос GET, просто отображаем форму
     return render(request, 'contacts.html')
 
+def product_about(request, pk):
+    product = Product.objects.get(pk=pk)
+    context = {"product": product}
+    return render(request, 'product_about.html', context)
+
 
 
