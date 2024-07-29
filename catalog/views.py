@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from catalog.models import Product
+from django.views.generic import ListView, DetailView
 
 def save_feedback_to_file(name, email, message, filename='feedback.txt'):
     with open(filename, 'a') as file:
@@ -9,19 +10,26 @@ def save_feedback_to_file(name, email, message, filename='feedback.txt'):
         file.write(f"Message: {message}\n")
         file.write("="*40 + "\n")
 
-def home(request):
-    latest_products = Product.objects.all().order_by('-created_at')[:5]
 
-    # Вывести последние пять товаров в консоль
-    for product in latest_products:
-        print(f'{product.name}: {product.description}')
+class ProductListView(ListView):
+    model = Product
+    # template_name = 'products/product_list.html'
+    # context_object_name = 'products'
 
-    # Вывести список товаров на страницу
-    products = Product.objects.all()
-    context = {"products": products, 'latest_products': latest_products}
 
-    return render(request, 'home.html', context)
-    #return render(request, 'home.html')
+# def home(request):
+#     latest_products = Product.objects.all().order_by('-created_at')[:5]
+#
+#     # Вывести последние пять товаров в консоль
+#     for product in latest_products:
+#         print(f'{product.name}: {product.description}')
+#
+#     # Вывести список товаров на страницу
+#     products = Product.objects.all()
+#     context = {"products": products, 'latest_products': latest_products}
+#
+#     return render(request, 'home.html', context)
+#     #return render(request, 'home.html')
 
 def contacts(request):
     if request.method == 'POST':
@@ -40,12 +48,15 @@ def contacts(request):
         return HttpResponse("Спасибо, дорогой, за обратную связь!")
 
     # Если запрос GET, просто отображаем форму
-    return render(request, 'contacts.html')
+    return render(request, 'products/contacts.html')
 
-def product_about(request, pk):
-    product = Product.objects.get(pk=pk)
-    context = {"product": product}
-    return render(request, 'product_about.html', context)
+class ProductDetailView(DetailView):
+    model = Product
 
+# def product_about(request, pk):
+#     product = Product.objects.get(pk=pk)
+#     context = {"product": product}
+#     return render(request, 'products/product_about.html', context)
+#
 
 
