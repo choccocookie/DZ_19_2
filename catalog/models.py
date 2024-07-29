@@ -63,6 +63,12 @@ class Product(models.Model):
         auto_now=True,
     )
 
+    views_counter = models.PositiveIntegerField(
+        verbose_name= "Количество просмотров",
+        help_text="Укажите количество просмотров",
+        default=0
+    )
+
 
     class Meta:
         verbose_name = "Продукт"
@@ -80,3 +86,6 @@ class ContactInfo(models.Model):
 
     def __str__(self):
         return self.name
+
+
+

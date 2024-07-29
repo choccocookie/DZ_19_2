@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from catalog.models import Product
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy, reverse
 
 def save_feedback_to_file(name, email, message, filename='feedback.txt'):
     with open(filename, 'a') as file:
@@ -53,10 +54,33 @@ def contacts(request):
 class ProductDetailView(DetailView):
     model = Product
 
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        self.object.views_counter += 1
+        self.object.save()
+        return self.object
+
 # def product_about(request, pk):
 #     product = Product.objects.get(pk=pk)
 #     context = {"product": product}
 #     return render(request, 'products/product_about.html', context)
 #
 
+#CRUD >>>
+class ProductCreateView(CreateView):
+    model = Product
+    fields = ['name', 'description', 'purchase_price', 'image']
+    success_url = reverse_lazy('catalog:catalog_list')
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = ['name', 'description', 'purchase_price', 'image']
+    success_url = reverse_lazy('catalog:catalog_list')
+
+    def get_success_url(self):
+        return reverse('catalog:catalog_detail', args=[self.kwargs.get('pk')])
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:catalog_list')
 
