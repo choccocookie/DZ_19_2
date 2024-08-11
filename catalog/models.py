@@ -51,8 +51,7 @@ class Product(models.Model):
         related_name="categories",
     )
     purchase_price = models.IntegerField(
-        verbose_name="Цена продукта",
-        help_text="Введите цену продукта"
+        verbose_name="Цена продукта", help_text="Введите цену продукта"
     )
     created_at = models.DateTimeField(
         verbose_name="Дата создания продукта",
@@ -64,11 +63,10 @@ class Product(models.Model):
     )
 
     views_counter = models.PositiveIntegerField(
-        verbose_name= "Количество просмотров",
+        verbose_name="Количество просмотров",
         help_text="Укажите количество просмотров",
-        default=0
+        default=0,
     )
-
 
     class Meta:
         verbose_name = "Продукт"
@@ -77,6 +75,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class ContactInfo(models.Model):
     name = models.CharField(max_length=100)
@@ -88,4 +87,19 @@ class ContactInfo(models.Model):
         return self.name
 
 
+class Version(models.Model):
+    product = models.ForeignKey(
+        Product,
+        related_name="versions",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name="Продукт",
+    )
+
+    version_number = models.FloatField(max_length=10, verbose_name="Номер версии")
+
+    version_name = models.TextField(verbose_name="Название версии")
+
+    version_attribute = models.BooleanField(verbose_name="Атрибут версии", default=False)
 
