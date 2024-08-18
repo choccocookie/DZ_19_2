@@ -17,3 +17,5 @@ admin.site.register(ContactInfo)
 class VersionAdmin(admin.ModelAdmin):
     list_display = ("product", "version_number", "version_name", "version_attribute")
 
+    list_filter = ('version_attribute', 'product')
+
