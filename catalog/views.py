@@ -6,6 +6,7 @@ from catalog.models import Product, Version
 from catalog.form import ProductForm, VersionForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def save_feedback_to_file(name, email, message, filename='feedback.txt'):
     with open(filename, 'a') as file:
@@ -15,7 +16,7 @@ def save_feedback_to_file(name, email, message, filename='feedback.txt'):
         file.write("="*40 + "\n")
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'catalog/product_list.html'
     context_object_name = 'products'
@@ -84,10 +85,15 @@ class ProductDetailView(DetailView):
 #
 
 #CRUD >>>
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:catalog_list')
+
+    def form_valid(self, form):
+        # Привязываем текущего пользователя к продукту
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 
