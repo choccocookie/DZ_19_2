@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'orm',
+        'NAME': 'dostup',
         'USER': 'postgres',
         'PASSWORD': 'sky.pro',
         'HOST': '127.0.0.1',
@@ -150,3 +150,4 @@ EMAIL_USE_SSL = True
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+

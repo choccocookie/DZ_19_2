@@ -17,25 +17,30 @@ class ProductForm(StyleMixin, ModelForm):
         model = Product
         exclude = ("views_counter",)
 
-        def clean_name(self):
-            name = self.cleaned_data["name"]
-            forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
-                               'радар']
-            for word in forbidden_words:
-                if word in name.lower():
-                    raise ValidationError(f'Название продукта содержит запрещенное слово: {word}')
-            return name
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
+                           'радар']
+        for word in forbidden_words:
+            if word in name.lower():
+                raise ValidationError(f'Название продукта содержит запрещенное слово: {word}')
+        return name
 
-        def clean_description(self):
-            description = self.cleaned_data.get('description')
-            forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
-                               'радар']
-            for word in forbidden_words:
-                if word in description.lower():
-                    raise ValidationError(f'Описание продукта содержит запрещенное слово: {word}')
-            return description
+    def clean_description(self):
+        description = self.cleaned_data.get('description')
+        forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
+                           'радар']
+        for word in forbidden_words:
+            if word in description.lower():
+                raise ValidationError(f'Описание продукта содержит запрещенное слово: {word}')
+        return description
 
 class VersionForm(StyleMixin, ModelForm):
     class Meta:
         model = Version
         fields = "__all__"
+
+class ProductModeratorForm(StyleMixin, ModelForm):
+    class Meta:
+        model = Product
+        fields = ("description", "category", "is_published")

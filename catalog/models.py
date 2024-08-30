@@ -70,10 +70,17 @@ class Product(models.Model):
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    is_published = models.BooleanField(default=False)  # Поле для статуса публикации продукта
+
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
-        ordering = ["name", "category", "purchase_price"]
+        ordering = ["name", "category", "purchase_price"],
+        permissions = [
+            ('can_unpublish_product', 'Can unpublish product'),
+            ("can_edit_description", "Can edit description"),
+            ('can_change_category', 'Can change product category')
+        ]
 
     def __str__(self):
         return self.name
@@ -99,7 +106,7 @@ class Version(models.Model):
         verbose_name="Продукт",
     )
 
-    version_number = models.FloatField(max_length=10, verbose_name="Номер версии")
+    version_number = models.FloatField(verbose_name="Номер версии")
 
     version_name = models.TextField(verbose_name="Название версии")
 

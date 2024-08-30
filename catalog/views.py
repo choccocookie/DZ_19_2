@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from catalog.models import Product, Version
-
-from catalog.form import ProductForm, VersionForm
+from django.core.exceptions import PermissionDenied
+from catalog.form import ProductForm, VersionForm, ProductModeratorForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,30 +25,20 @@ class ProductListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
 
         # Получаем все продукты
-        products = context['products']
+        products = context.get('products')
 
         # Для каждого продукта выбираем текущую (активную) версию
-        for product in products:
-            active_version = product.versions.filter(version_attribute=True).first()
-            product.active_version = active_version
+        if products:
+            for product in products:
+                active_version = product.versions.filter(version_attribute=True).first()
+                product.active_version = active_version
 
+
+        print(product)
         return context
 
 
 
-# def home(request):
-#     latest_products = Product.objects.all().order_by('-created_at')[:5]
-#
-#     # Вывести последние пять товаров в консоль
-#     for product in latest_products:
-#         print(f'{product.name}: {product.description}')
-#
-#     # Вывести список товаров на страницу
-#     products = Product.objects.all()
-#     context = {"products": products, 'latest_products': latest_products}
-#
-#     return render(request, 'home.html', context)
-#     #return render(request, 'home.html')
 
 def contacts(request):
     if request.method == 'POST':
@@ -58,9 +48,6 @@ def contacts(request):
         message = request.POST.get('message')
         save_feedback_to_file(name, phone, message)
 
-        # Обрабатываем данные (например, сохраняем их в базе данных, отправляем email и т.д.)
-        # Здесь можно добавить код для обработки данных, например:
-        # save_feedback_to_database(name, email, message)
 
 
         # Возвращаем ответ пользователю
@@ -78,11 +65,6 @@ class ProductDetailView(DetailView):
         self.object.save()
         return self.object
 
-# def product_about(request, pk):
-#     product = Product.objects.get(pk=pk)
-#     context = {"product": product}
-#     return render(request, 'products/product_about.html', context)
-#
 
 #CRUD >>>
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -97,7 +79,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:catalog_list')
@@ -124,6 +106,17 @@ class ProductUpdateView(UpdateView):
             return super().form_valid(form)
         else:
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return ProductForm
+        if (user.has_perm("product.can_unpublish_product") and user.has_perm("product.can_edit_description") and user.has_perm("product.can_change_category")):
+            return ProductModeratorForm
+        raise PermissionDenied
+
+
+
 
 
 class ProductDeleteView(DeleteView):
