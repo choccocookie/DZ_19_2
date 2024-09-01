@@ -25,16 +25,21 @@ class ProductListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
 
         # Получаем все продукты
-        products = context.get('products')
+        products = context['products']
+
+        print("Products:", products)
 
         # Для каждого продукта выбираем текущую (активную) версию
+
         if products:
             for product in products:
                 active_version = product.versions.filter(version_attribute=True).first()
                 product.active_version = active_version
 
+            print(f"Product: {product}, Active version: {active_version}")
 
-        print(product)
+
+
         return context
 
 
@@ -109,7 +114,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_form_class(self):
         user = self.request.user
-        if user == self.object.owner:
+        if user == self.object.user:
             return ProductForm
         if (user.has_perm("product.can_unpublish_product") and user.has_perm("product.can_edit_description") and user.has_perm("product.can_change_category")):
             return ProductModeratorForm

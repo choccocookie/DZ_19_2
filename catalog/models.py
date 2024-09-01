@@ -68,6 +68,8 @@ class Product(models.Model):
         help_text="Укажите количество просмотров",
         default=0,
     )
+
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     is_published = models.BooleanField(default=False)  # Поле для статуса публикации продукта
@@ -75,7 +77,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
-        ordering = ["name", "category", "purchase_price"],
+        ordering = ["name", "category", "purchase_price"]
         permissions = [
             ('can_unpublish_product', 'Can unpublish product'),
             ("can_edit_description", "Can edit description"),
