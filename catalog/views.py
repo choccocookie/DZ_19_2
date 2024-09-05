@@ -7,6 +7,7 @@ from catalog.form import ProductForm, VersionForm, ProductModeratorForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from catalog.services import get_cached_categories, get_catalog_from_cahe
 
 def save_feedback_to_file(name, email, message, filename='feedback.txt'):
     with open(filename, 'a') as file:
@@ -15,6 +16,13 @@ def save_feedback_to_file(name, email, message, filename='feedback.txt'):
         file.write(f"Message: {message}\n")
         file.write("="*40 + "\n")
 
+class CategoryList_View(ListView):
+    template_name = 'catalog/category_list.html'
+    context_object_name = 'categories'
+
+    def get_queryset(self):
+        # Возвращаем результат работы функции
+        return get_cached_categories()
 
 class ProductListView(LoginRequiredMixin, ListView):
     model = Product
@@ -25,9 +33,11 @@ class ProductListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
 
         # Получаем все продукты
-        products = context['products']
+        products = get_catalog_from_cahe()
+        context['products'] = products
 
         print("Products:", products)
+
 
         # Для каждого продукта выбираем текущую (активную) версию
 
